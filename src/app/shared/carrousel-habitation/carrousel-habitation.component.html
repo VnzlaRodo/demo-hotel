@@ -6,7 +6,7 @@
       [thumbs]="{ swiper: thumbsSwiper }"
       class="mySwiper2"
     >
-    <ng-template swiperSlide *ngFor="let item of data.imagenes">
+    <ng-template swiperSlide *ngFor="let item of data.images">
         <img src="{{ item }}" />
     </ng-template>
     
@@ -20,7 +20,7 @@
       [watchSlidesProgress]="true"
       class="mySwiper"
     >
-    <ng-template swiperSlide *ngFor="let item of data.imagenes">
+    <ng-template swiperSlide *ngFor="let item of data.images">
         <img src="{{ item }}" />
     </ng-template>
     </swiper>

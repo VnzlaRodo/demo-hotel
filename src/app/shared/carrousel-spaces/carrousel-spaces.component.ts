@@ -4,6 +4,7 @@ import { SwiperComponent } from "swiper/angular";
 // import Swiper core and required modules
 import SwiperCore, { FreeMode, Navigation, Thumbs } from "swiper";
 import { TypeHabitation } from 'src/app/models/typehabitation';
+import { Space } from 'src/app/models/space';
 
 // install Swiper modules
 SwiperCore.use([FreeMode, Navigation, Thumbs]);
@@ -18,7 +19,7 @@ export class CarrouselSpacesComponent implements OnInit {
 
   thumbsSwiper: any;
 
-  @Input() data: any;
+  @Input() data: Space = { "id": "0", "name": "", "description": "", "size": 0, "amount": 0, "images": [""], "status": 0 };
 
   constructor() { }
 

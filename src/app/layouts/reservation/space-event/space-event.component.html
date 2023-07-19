@@ -1,18 +1,21 @@
 <section>    
     <div class="row my-5 py-5">
-        <div class="col-lg-6 px-5 my-3" *ngFor="let type of spaces">
-            <div class="card-r row py-3 rounded " *ngIf="type.status == 'Activo'">
+        <div class="col-lg-6 px-5 my-3" *ngFor="let space of spaces">
+            <div class="card-r row py-3 rounded " data-aos="fade-left">
                 <div class="col" >
-                    <app-carrousel-spaces [data]="type"></app-carrousel-spaces>            
+                    <app-carrousel-spaces [data]="space"></app-carrousel-spaces>            
                 </div>
                 <div class="col text-light text-end">                    
                     <div class="text-start">
-                        <h3 >{{ type.name }}</h3>
-                        <p>{{ type.size }} | capacidad para {{ type.amount }}</p>
+                        <h3 >{{ space.name | uppercase }}</h3>
+                        <div>Tamaño: {{ space.size }} Mts2</div>
+                        <div class="mb-4">Capacidad: {{ space.amount }} Personas</div>
                         
-                        <p >{{ type.description }}</p>
-            
-                        <button type="button"  class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">SELECIONAR</button>
+                        <p >{{ space.description }}</p>
+
+                        <div class="d-grid gap-2">
+                          <button type="button"  class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">SOLICITAR RESERVA</button>
+                        </div>
                     </div>
                 </div>
             </div>

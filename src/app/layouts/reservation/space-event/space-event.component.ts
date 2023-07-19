@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Space } from 'src/app/models/space';
+import { ServicesService } from 'src/app/services/services.service';
 
 @Component({
   selector: 'app-space-event',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SpaceEventComponent implements OnInit {
 
-  spaces = DataSpaces;
+  spaces: Space[] = [];
 
-  constructor() { }
+  constructor( private services: ServicesService ) { 
+
+              this.services.getSpaces()
+                            .subscribe( resp => {
+
+                              this.spaces = resp;
+                            } );
+   }
 
   ngOnInit(): void {
   }

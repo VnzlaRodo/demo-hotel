@@ -1,15 +1,15 @@
 <section>    
     <div class="row my-5 py-5">
         <div class="col-lg-6 px-5 my-3" *ngFor="let type of typeHabitation">
-            <div class="card-r row py-3 rounded " *ngIf="type.status == 'Activo'">
+            <div class="card-r row py-3 rounded " data-aos="fade-left">
                 <div class="col" >
                     <app-carrousel-habitation [data]="type"></app-carrousel-habitation>            
                 </div>
                 <div class="col text-light text-end">
                     <p class="badge bg-warning text-dark text-end">{{ type.price }}$ la noche</p>
                     <div class="text-start">
-                        <h3 >{{ type.name }}</h3>
-                        <p >{{ type.description }}</p>
+                        <h3 >{{ type.name | uppercase }}</h3>
+                        <p >{{ type.description | uppercase }}</p>
             
                         <button type="button"  class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#staticBackdrop">SELECIONAR</button>
                     </div>

@@ -18,13 +18,11 @@ export class CarrouselHabitationComponent implements OnInit {
 
   thumbsSwiper: any;
 
-  @Input()  data: TypeHabitation = { id: '', name: '', status: '', price: 0, imagenes: [''], description: ''}
+  @Input()  data: TypeHabitation = { id: '', name: '', status: 0, price: 0, images: [''], description: ''}
 
   constructor() { }
 
-  ngOnInit(): void {
-
-    console.log(this.data);
+  ngOnInit(): void {    
   }
 
 }

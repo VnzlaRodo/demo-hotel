@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { TypeService } from '../models/typeservice';
 import { EventClient } from '../models/eventClient';
+import { TypeHabitation } from '../models/typehabitation';
+import { Space } from '../models/space';
 
 
 @Injectable({
@@ -63,9 +65,23 @@ export class ServicesService {
   //Reservations
   getTypeHabitation(){
 
-    return this._http.get(`${ this.url }/typehabitations-public`);
+    return this._http.get<TypeHabitation[]>(`${ this.url }/typehabitations-public`)
+                            .pipe((
+                              map( resp => {
+                                return resp.filter( (resp) => resp.status != 0 )
+                              } )
+                            )) 
   }
 
+  //Spaces
+  getSpaces(){
+    return this._http.get<Space[]>(`${ this.url }/spaces-public`) 
+                            .pipe((
+                              map( resp => {
+                                return resp.filter( (resp) => resp.status != 0 )
+                              } )
+                            )) 
+  }
 
   getHabitations(){
     return this._http.get(`${ this.url }/habitations`);
