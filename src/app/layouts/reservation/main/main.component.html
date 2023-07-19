@@ -1,0 +1,77 @@
+<!-- Section 1 -->
+<section class="section-1">
+    <div class="container">
+
+        <div class="row position-relative py-5">
+            <div class="col-lg-6 my-2">
+                <div class="row">
+                    <div class="offset-1 offset-lg-4 col-10 col-lg-8">
+                        
+                        <!--card-->
+                        <div class="card bg-dark text-white" [@showMeH]="state" (click)="showMenuH()">
+                            <img src="assets/img/reservation/habitation.jpg" class="card-img" alt="...">
+                            <div class="card-img-overlay">
+                                <h3 class="card-title position-absolute text-center">Habitationes</h3>                                
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 my-2">
+                <div class="row">
+                    <div class="offset-1 col-10 col-lg-8">
+                        
+                        <!--card-->
+                        <div class="card bg-dark text-white" [@showMeE]="state" (click)="showMenuE()">
+                            <img src="assets/img/reservation/spaces.jpg" class="card-img" alt="...">
+                            <div class="card-img-overlay">
+                                <h3 class="card-title position-absolute text-center">Espacios para Eventos</h3>                                
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="offset-lg-3 col-lg-6 position-absolute" [@showForm]="stateFormH">
+                <div class="row mt-5">
+                    <div class="col menuH px-5">
+                        <button class="btn btn-dark" (click)="showMenuH()">atras</button>
+                        <h3 class="text-center">RESERVA TU HABITACIÓN</h3>
+                        <form class="row g-3 justify-content-center">
+                            <div class="col-auto">                
+                                <input type="date" class="form-control" name="dateOne">
+                              </div>
+                              <div class="col-auto">                
+                                <input type="date" class="form-control" name="dateTwo">
+                              </div>
+                            <div class="col-auto">
+                              <button type="submit" class="btn btn-dark py-2 px-3 mb-3" [routerLink]="['habitacion']">CONSULTAR</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="offset-lg-3 col-lg-6 position-absolute" [@showForm]="stateFormE">
+                <div class="row mt-5">
+                    <div class="col menuH px-5">
+                        <button class="btn btn-dark" (click)="showMenuE()">atras</button>
+                        <h3 class="text-center">RESERVA PARA EVENTOS</h3>
+                        <form class="row g-3 justify-content-center">
+                            <div class="col-auto">                
+                                <input type="date" class="form-control" name="dateOne">
+                              </div>
+                              <div class="col-auto">                
+                                <input type="date" class="form-control" name="dateTwo">
+                              </div>
+                            <div class="col-auto">
+                              <button type="submit" class="btn btn-dark py-2 px-3 mb-3" [routerLink]="['nuestros-espacios']">CONSULTAR</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</section>

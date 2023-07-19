@@ -1,0 +1,118 @@
+<!-- Header -->
+<app-header title="Servicios" img="https://plus.unsplash.com/premium_photo-1661631166112-5282cf616cad?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"></app-header>
+<section>
+    <div class="container">
+        <div class="row">
+            <div class="col py-5">
+                <p class="text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam rerum ea vero omnis ex ducimus, at culpa exercitationem dolor pariatur numquam reprehenderit harum dolorum velit nam iure earum iste ab.</p>
+                <div class="row">
+                    <div id="{{ item.name }}" data-aos="fade-left" class="col-12 p-lg-5" *ngFor="let item of dataService">
+                        <div class="row data px-lg-5 mx-lg-5 my-5 my-lg-0">
+                            <div class="col-lg-4 info-data p-5">
+                                <div class="up">
+                                    <h3>{{ item.name | uppercase }}</h3>
+                                    <p>{{ item.description }}</p>
+                                </div>
+                                
+                                <div class="down">
+                                    <h4>Consulte información</h4>
+                                    <div class="d-grid gap-2">
+                                        <button class="btn btn-dark"
+                                                type="button"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#exampleModal"
+                                                (click)="showInfo(item)"
+                                                >Aquí
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8 p-0">
+                                
+                                <swiper
+                                    [spaceBetween]="30"
+                                    [effect]="'fade'"
+                                    [navigation]="false"
+                                    [pagination]="{
+                                    clickable: true
+                                    }"
+                                    class="mySwiper"
+                                >
+                                    <ng-template swiperSlide *ngFor="let img of item.images">
+                                        <img class="img-fluid" src="{{img}}" />
+                                    </ng-template>
+                                </swiper>`
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Modal Contacto -->  
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header" *ngIf="formInfo.name">
+          <h5 class="modal-title" id="exampleModalLabel">{{ formInfo.name | uppercase }}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" [ngClass]="{'bg-dark': !formInfo.name}">
+
+            <div class="container-form" *ngIf="formInfo.name">
+
+                <p>¿Que necesitas saber?</p>
+              
+                <!--Form Contact-->
+                <form >
+                                
+                    <div class="mb-3">                                
+                        <input type="text" class="form-control" formControlName="name" placeholder="Nombre" aria-label="Username" aria-describedby="basic-addon1">
+                        
+                    </div>
+                      
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control" formControlName="email" placeholder="Email" aria-label="Email" aria-describedby="basic-addon2">
+                            <span class="input-group-text" id="basic-addon2">@email.com</span>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="mb-3">                                
+                        <input type="phone" class="form-control" formControlName="phone" placeholder="Teléfono" aria-describedby="basic-addon3">
+                        
+                    </div>
+                    <div class="mb-3">                                
+                        <input type="text" class="form-control" formControlName="reason" placeholder="Propósito (opcional)" aria-describedby="basic-addon4">
+                        
+                    </div>
+                      
+                                                   
+                      <div class="input-group">
+                        <span class="input-group-text">Info</span>
+                        <textarea class="form-control" placeholder="Consulta con detalles" formControlName="details" aria-label="With textarea"></textarea>
+                      </div>
+                      <div class="d-grid gap-2 col-6 mx-auto">
+                          <button class="btn btn-dark  mt-3" (click)="submit()" type="button">Enviar </button>
+                      </div>
+    
+                </form>
+            </div>
+
+            <!--loading-->
+            <div class="container-loading" *ngIf="!formInfo.name">
+                <div class="loading" data-aos="zoom-in">
+                    <h4>cargando...</h4>
+                </div>
+            </div>
+
+        </div>
+        
+      </div>
+    </div>
+  </div>

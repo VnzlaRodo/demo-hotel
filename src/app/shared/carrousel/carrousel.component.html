@@ -1,0 +1,18 @@
+<swiper
+    [spaceBetween]="30"
+    [centeredSlides]="true"
+    [autoplay]="{
+      delay: 4500,
+      disableOnInteraction: false
+    }"
+    [pagination]="{
+      clickable: true
+    }"
+    [navigation]="false"
+    class="mySwiper"
+  >
+    <ng-template swiperSlide *ngFor="let item of data">
+      <div class="name">{{ item.name | uppercase }}</div>
+      <img src="{{ item.images }}" alt="">
+    </ng-template>
+  </swiper>

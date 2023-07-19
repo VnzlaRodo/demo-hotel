@@ -1,0 +1,53 @@
+<!--Header-->
+<app-header title="Contacto" img="https://images.unsplash.com/photo-1558959357-685f9c7ace7b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"></app-header>
+
+<section>
+    <div class="container py-5">
+        <div class="row">
+            <p class="text-center mt-3 mb-5">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellat voluptas maiores vitae distinctio ab rerum qui, expedita odit magni voluptatum dicta eius modi id laboriosam, obcaecati eligendi. Exercitationem, quam aspernatur!</p>
+            
+            <div class="col-lg-6">
+                <h2>Contactanos</h2>
+                <form >
+                            
+                    <div class="mb-3">                                
+                        <input type="text" class="form-control" formControlName="name" placeholder="Nombre" aria-label="Username" aria-describedby="basic-addon1">
+                        
+                    </div>
+                      
+                    <div class="mb-3">
+                        <div class="input-group">
+                            <input type="text" class="form-control" formControlName="email" placeholder="Email" aria-label="Email" aria-describedby="basic-addon2">
+                            <span class="input-group-text" id="basic-addon2">@email.com</span>
+                        </div>
+                        
+                    </div>
+                    
+                    <div class="mb-3">                                
+                        <input type="text" class="form-control" formControlName="reason" placeholder="Teléfono" aria-describedby="basic-addon3">
+                        
+                    </div>
+                    <div class="mb-3">                                
+                        <input type="text" class="form-control" formControlName="reason" placeholder="Motivo" aria-describedby="basic-addon3">
+                        
+                    </div>
+                      
+                                                   
+                      <div class="input-group">
+                        <span class="input-group-text">Detalles</span>
+                        <textarea class="form-control" formControlName="details" aria-label="With textarea"></textarea>
+                      </div>
+                      <div class="d-grid gap-2 col-6 mx-auto">
+                          <button class="btn btn-dark  mt-3" type="submit" data-bs-toggle="modal" href="#tanks"  >Enviar </button>
+                      </div>
+
+                </form>
+            </div>
+            <div class="col-lg-6 d-none d-lg-block">
+                 <!-- mapa -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2335.7504753608687!2d-69.24219071788275!3d10.07872127720313!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x30a33d0f1af29d59!2sHotel%20la%20colina!5e0!3m2!1ses!2sve!4v1624655564778!5m2!1ses!2sve"
+                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </div>
+</section>
