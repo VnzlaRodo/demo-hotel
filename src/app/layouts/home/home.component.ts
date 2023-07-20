@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
 
                         this.typeHabitation = resp;
                        
-                        console.log(this.typeHabitation);
+                       
                       } );
 
         this.services.getServices()
@@ -38,14 +38,14 @@ export class HomeComponent implements OnInit {
 
                         this.dataService = resp;                        
 
-                        console.log(this.dataService);
+                        
                       });
 
         this.services.getEvents()
                       .subscribe( (resp:any) => {
 
                         this.dataEvent = resp;
-                        console.log(this.dataEvent)
+                       
                                                 
                       });
   }

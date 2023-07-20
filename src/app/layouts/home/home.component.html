@@ -16,10 +16,10 @@
         <a class="col-12 col-md-6 col-lg-4" data-aos="zoom-in-left" data-aos-duration="3000" href="/servicios/#{{ item.name }}" *ngFor="let item of dataService">
             <div class="card mb-3">
                 <div class="row g-0">
-                  <div class="col-md-4">
+                  <div class="col-4 container-ico">
                     <img src="{{ item.ico }}" class="img-fluid rounded-start p-3" alt="...">
                   </div>
-                  <div class="col-md-8">
+                  <div class="col-8">
                     <div class="card-body">
                       <h3 class="card-title">{{item.name | uppercase}}</h3>
                       <p class="card-text">{{ item.description }}</p>
@@ -52,14 +52,14 @@
         <h3>RESERVA ONLINE</h3>
         <p>Garantizamos tu comodidad</p>
         
-        <form class="row g-3 justify-content-center">
-            <div class="col-auto">                
+        <form class="row">
+            <div class="col-6">                
                 <input type="date" class="form-control" name="dateOne">
               </div>
-              <div class="col-auto">                
+              <div class="col-6">                
                 <input type="date" class="form-control" name="dateTwo">
               </div>
-            <div class="col-auto">
+            <div class="col-12 mt-4">
               <button type="submit" class="btn btn-dark py-2 px-3 mb-3" [routerLink]="['/reserva/habitacion']">CONSULTAR</button>
             </div>
           </form>

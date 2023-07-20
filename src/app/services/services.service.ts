@@ -12,7 +12,8 @@ import { Space } from '../models/space';
 })
 export class ServicesService {
 
-  private url = 'http://127.0.0.1:8000/api';
+  //private url = 'http://127.0.0.1:8000/api';
+  private url = 'https://api-hotel.naguarasoftware.com/api';
   
   
   constructor( private _http: HttpClient ) { }
