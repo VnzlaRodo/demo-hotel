@@ -41,6 +41,14 @@
 .modal-dialog{
   .modal-body{
     width: 100%;
+    .close-message{
+      position: absolute;
+      right: 20px;
+      color: rgb(255, 255, 255, .5);
+      border: solid 1px;
+      border-radius: 50%;
+      background-color: rgb(71, 89, 167,.7);
+    }
   }
   .container-loading{
     background-image: url("/assets/img/logo-bg.png");
@@ -56,11 +64,19 @@
       height: 75%;
       width: 50%;
       border-radius: 50%;
-      border: solid rgb(71, 89, 167,.5);;
+      border: solid rgb(71, 89, 167,.5);
       display: grid;
       place-items: center;
       color: white;
       animation: infinite intermitente 2s;
+    }
+    .check{
+      background-color: rgba(0, 0, 0, 0.5);
+      height: 75%;
+      width: 45%;      
+      display: grid;
+      place-items: center;
+      color: white;
     }
     @keyframes intermitente {
       0%,100%{

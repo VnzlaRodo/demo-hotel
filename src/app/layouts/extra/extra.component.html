@@ -54,7 +54,7 @@
 </section>
 
 <!-- Modal Contacto -->  
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header" *ngIf="formInfo.name">
@@ -62,52 +62,69 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body" [ngClass]="{'bg-dark': !formInfo.name}">
+            <button type="button" class="btn close-message" data-bs-dismiss="modal" aria-label="Close" *ngIf="message" (click)="closeMessage()">X</button>
 
             <div class="container-form" *ngIf="formInfo.name">
 
                 <p>¿Que necesitas saber?</p>
               
                 <!--Form Contact-->
-                <form >
+                <form (ngSubmit)="onSubmit()" [formGroup]="myForm">
                                 
                     <div class="mb-3">                                
-                        <input type="text" class="form-control" formControlName="name" placeholder="Nombre" aria-label="Username" aria-describedby="basic-addon1">
-                        
+                        <input type="text" class="form-control" formControlName="name" placeholder="Nombre y Apellido">
+                        <span class="form-text text-danger" *ngIf="validCap('name')">
+                            Campo obligatorio minimo 4 caracteres
+                    </span>                        
                     </div>
+                    <input type="hidden" formControlName="id_service" [ngModel]="formInfo.id">
+                    <input type="hidden" formControlName="name_service" [ngModel]="formInfo.name">
                       
                     <div class="mb-3">
                         <div class="input-group">
-                            <input type="text" class="form-control" formControlName="email" placeholder="Email" aria-label="Email" aria-describedby="basic-addon2">
+                            <input type="text" class="form-control" formControlName="email" placeholder="Email">
                             <span class="input-group-text" id="basic-addon2">@email.com</span>
                         </div>
-                        
+                        <span class="form-text text-danger" *ngIf="validCap('email')">
+                            Campo obligatorio email invalido
+                        </span>
                     </div>
                     
                     <div class="mb-3">                                
-                        <input type="phone" class="form-control" formControlName="phone" placeholder="Teléfono" aria-describedby="basic-addon3">
-                        
+                        <input type="phone" class="form-control" formControlName="phone" placeholder="Teléfono">
+                        <span class="form-text text-danger" *ngIf="validCap('phone')">
+                            Campo obligatorio minimo 11 dígitos
+                        </span>
                     </div>
                     <div class="mb-3">                                
-                        <input type="text" class="form-control" formControlName="reason" placeholder="Propósito (opcional)" aria-describedby="basic-addon4">
-                        
+                        <input type="text" class="form-control" formControlName="reason" placeholder="Propósito (opcional)" >                        
                     </div>
                       
                                                    
                       <div class="input-group">
                         <span class="input-group-text">Info</span>
-                        <textarea class="form-control" placeholder="Consulta con detalles" formControlName="details" aria-label="With textarea"></textarea>
-                      </div>
+                        <textarea class="form-control" placeholder="Consulta con detalles" formControlName="details"></textarea>
+                    </div>
+                    <span class="form-text text-danger" *ngIf="validCap('details')">
+                        Campo obligatorio 
+                    </span>
                       <div class="d-grid gap-2 col-6 mx-auto">
-                          <button class="btn btn-dark  mt-3" (click)="submit()" type="button">Enviar </button>
+                          <button class="btn btn-dark  mt-3" type="submit" [disabled]="myForm.invalid">Enviar </button>
                       </div>
     
                 </form>
             </div>
 
             <!--loading-->
-            <div class="container-loading" *ngIf="!formInfo.name">
+            <div class="container-loading" *ngIf="!formInfo.name && !message">
                 <div class="loading" data-aos="zoom-in">
                     <h4>cargando...</h4>
+                </div>
+            </div>
+            
+            <div class="container-loading" *ngIf="message">
+                <div class="check">
+                    <span *ngIf="message"><span class="fw-bold">{{ message | uppercase }}</span><br>Te reponderemos en la brevedad posible.</span>
                 </div>
             </div>
 

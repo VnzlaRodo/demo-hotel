@@ -1,18 +1,22 @@
 <!--Header-->
 <app-header title="Contacto" img="https://images.unsplash.com/photo-1558959357-685f9c7ace7b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"></app-header>
 
-<section>
+<section id="contacto"> 
     <div class="container py-5">
         <div class="row">
             <p class="text-center mt-3 mb-5">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellat voluptas maiores vitae distinctio ab rerum qui, expedita odit magni voluptatum dicta eius modi id laboriosam, obcaecati eligendi. Exercitationem, quam aspernatur!</p>
             
             <div class="col-lg-6">
                 <h2>Contactanos</h2>
-                <form >
+                
+                <!--Form Contact-->
+                <form (ngSubmit)="onSubmit()" [formGroup]="myForm">
                             
                     <div class="mb-3">                                
-                        <input type="text" class="form-control" formControlName="name" placeholder="Nombre" aria-label="Username" aria-describedby="basic-addon1">
-                        
+                        <input type="text" class="form-control" formControlName="name" placeholder="Nombre y Apellido" aria-label="Username" aria-describedby="basic-addon1">
+                        <span class="form-text text-danger" *ngIf="validCap('name')">
+                            Campo obligatorio minimo 4 caracteres
+                    </span>  
                     </div>
                       
                     <div class="mb-3">
@@ -20,12 +24,16 @@
                             <input type="text" class="form-control" formControlName="email" placeholder="Email" aria-label="Email" aria-describedby="basic-addon2">
                             <span class="input-group-text" id="basic-addon2">@email.com</span>
                         </div>
-                        
+                        <span class="form-text text-danger" *ngIf="validCap('email')">
+                            Campo obligatorio email invalido
+                        </span>
                     </div>
                     
                     <div class="mb-3">                                
-                        <input type="text" class="form-control" formControlName="reason" placeholder="Teléfono" aria-describedby="basic-addon3">
-                        
+                        <input type="text" class="form-control" formControlName="phone" placeholder="Teléfono" aria-describedby="basic-addon3">
+                        <span class="form-text text-danger" *ngIf="validCap('phone')">
+                            Campo obligatorio minimo 11 dígitos
+                        </span>
                     </div>
                     <div class="mb-3">                                
                         <input type="text" class="form-control" formControlName="reason" placeholder="Motivo" aria-describedby="basic-addon3">
@@ -37,8 +45,11 @@
                         <span class="input-group-text">Detalles</span>
                         <textarea class="form-control" formControlName="details" aria-label="With textarea"></textarea>
                       </div>
+                      <span class="form-text text-danger" *ngIf="validCap('details')">
+                        Campo obligatorio 
+                    </span>
                       <div class="d-grid gap-2 col-6 mx-auto">
-                          <button class="btn btn-dark  mt-3" type="submit" data-bs-toggle="modal" href="#tanks"  >Enviar </button>
+                          <button class="btn btn-dark  mt-3" type="submit" [disabled]="myForm.invalid">Enviar </button>
                       </div>
 
                 </form>

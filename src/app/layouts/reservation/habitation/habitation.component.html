@@ -6,7 +6,7 @@
                     <app-carrousel-habitation [data]="type"></app-carrousel-habitation>            
                 </div>
                 <div class="col text-light text-end">
-                    <p class="badge bg-warning text-dark text-end">{{ type.price }}$ la noche</p>
+                    <p class="badge bg-warning text-dark text-end">{{ type.price | currency : '$' }} </p>
                     <div class="text-start">
                         <h3 >{{ type.name | uppercase }}</h3>
                         <p >{{ type.description | uppercase }}</p>
