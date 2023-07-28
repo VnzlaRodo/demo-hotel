@@ -35,7 +35,11 @@ import { ReactiveFormsModule } from '@angular/forms';
     CarrouselEventComponent,
     ReservationComponent,
     HabitationComponent,    
-    SpaceEventComponent, MainComponent, CarrouselHabitationComponent, CarrouselSpacesComponent, HeaderComponent
+    SpaceEventComponent,
+    MainComponent,
+    CarrouselHabitationComponent,
+    CarrouselSpacesComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

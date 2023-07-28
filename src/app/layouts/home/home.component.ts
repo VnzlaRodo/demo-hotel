@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import * as Aos from 'aos';
 import { EventClient } from 'src/app/models/eventClient';
+import { Habitation } from 'src/app/models/habitation';
 import { TypeHabitation } from 'src/app/models/typehabitation';
 import { TypeService } from 'src/app/models/typeservice';
+import { ClientService } from 'src/app/services/client.service';
 import { ServicesService } from 'src/app/services/services.service';
 
 
@@ -23,7 +27,16 @@ export class HomeComponent implements OnInit {
 
   typeHabitation: TypeHabitation[] = [];
 
-  constructor( private services: ServicesService) { 
+  today = new Date();
+  chechDate: boolean = false;
+
+  myForm: FormGroup = this.fb.group({
+    checkin   : ['', Validators.required],
+    checkout  : ['', Validators.required]
+  });
+
+  constructor( private services: ServicesService, private fb :FormBuilder,
+               private clientService: ClientService, private route: ActivatedRoute, private router: Router ) { 
 
         this.services.getTypeHabitation()
                       .subscribe( (resp:any)=>{
@@ -51,8 +64,26 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit(): void {   
-    Aos.init();
+    Aos.init();    
   } 
+
+  onSubmit(){
+    if (this.myForm.value.checkout < this.myForm.value.checkin) {
+      this.chechDate = true;
+      this.myForm.reset();      
+    }else{
+
+      this.clientService.consultHabitation(this.myForm.value).subscribe( resp => {
+        
+        this.clientService.habitations_available = resp;
+        this.clientService.checks = this.myForm.value;
+        this.router.navigate(["/reserva/habitacion"])
+      });
+
+    }
+
+    
+  }
 }
 
 export const DataServices: any[] = [

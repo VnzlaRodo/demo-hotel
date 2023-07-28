@@ -99,6 +99,13 @@
         @media screen and (max-width: 992px) {
             padding-inline: 5%;
         }
+        span{
+            color: rgba(255, 255, 0, 0.781) !important;
+            background-color: #ff00006b;
+            border-radius: 5px;
+            padding-inline: 10px;
+            padding-block: 3px;
+        }
     }
 }
 

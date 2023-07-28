@@ -52,15 +52,21 @@
         <h3>RESERVA ONLINE</h3>
         <p>Garantizamos tu comodidad</p>
         
-        <form class="row">
+        <form class="row" (ngSubmit)="onSubmit()" [formGroup]="myForm">
             <div class="col-6">                
-                <input type="date" class="form-control" name="dateOne">
+                <input type="date" class="form-control" formControlName="checkin" min="{{ today | date: 'YYYY-MM-dd' }}">
               </div>
               <div class="col-6">                
-                <input type="date" class="form-control" name="dateTwo">
+                <input type="date" class="form-control" formControlName="checkout" min="{{ today | date: 'YYYY-MM-dd' }}">
+              </div>
+              <div class="col-12 mt-3">
+                <span class="form-text text-danger" *ngIf="chechDate">
+                  La fecha Final no puede ser menor a la Inicial
+                </span>
               </div>
             <div class="col-12 mt-4">
-              <button type="submit" class="btn btn-dark py-2 px-3 mb-3" [routerLink]="['/reserva/habitacion']">CONSULTAR</button>
+              <button type="submit" class="btn btn-dark py-2 px-3 mb-3" [disabled]="myForm.invalid">CONSULTAR</button>
+              <!--<button type="submit" class="btn btn-dark py-2 px-3 mb-3" [routerLink]="['/reserva/habitacion']">CONSULTAR</button>-->
             </div>
           </form>
         

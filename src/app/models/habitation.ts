@@ -1,12 +1,18 @@
-export class Habitation{
-	constructor(
-		public id: string,        
-		public Id_tipo_habitacion: string,
-		public price: number,
-        public status: string,
-        public number: number,
-        public description?: string,
-        public fecha_registro?: Date,
-        public id_Admin?: string
-	){}
+export interface Habitation{
+	
+		id: string,        
+		id_type_habitation: string,
+        id_lodging: string,
+        number: number,
+        adults: number,
+        children: number,
+        description: string,
+        status: string,
+        type?: Type,		
+        lodging?: any
 }
+
+interface Type{
+    name: string
+}
+

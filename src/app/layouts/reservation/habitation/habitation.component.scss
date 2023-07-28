@@ -1,10 +1,42 @@
 @import '../../../app.component.scss';
+#habitations{
+    .row{
 
-.card-r{
-    background: #4859A8;
+    }
+    .card-r{
+        background: #4859A8;
+        position: relative;
+        .status{
+            display: none;
+        }
+        .off{
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.7);    
+            height: 100%;
+            width: 100%;
+            display: grid;
+            place-items: center;    
+            top: 0;
+            z-index: 9;
+            span{
+                font-size: 2rem;
+                color: white !important;
+                background-color: #4859A8;
+                padding-inline: 10px;
+                border-radius: 5px;
+            }
+    }
+    }
+
+    
+    .badge{
+        
+        font-size: 1.3rem;
+    }
+    
 }
 
-.badge{
-    
-    font-size: 1.3rem;
+.span-error-group{
+    position: relative !important;
+    top: -20px !important;
 }
