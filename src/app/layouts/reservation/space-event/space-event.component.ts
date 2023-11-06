@@ -17,6 +17,7 @@ export class SpaceEventComponent implements OnInit {
                             .subscribe( resp => {
 
                               this.spaces = resp;
+                              console.log(resp);
                             } );
    }
 

@@ -29,6 +29,6 @@
             <div>Hora: {{ item.date | date: 'shortTime' }}</div>
             <div>Precio: {{ item.price | currency: '$' }}</div>
         </div>
-        <img src="{{ item.avatar }}" alt="">
+        <img src="http://127.0.0.1:8000/{{ item.avatar }}" alt="">
     </ng-template>
   </swiper>

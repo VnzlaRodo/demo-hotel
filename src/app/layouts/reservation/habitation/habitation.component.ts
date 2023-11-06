@@ -5,6 +5,7 @@ import { Habitation } from 'src/app/models/habitation';
 import { TypeHabitation } from 'src/app/models/typehabitation';
 import { ClientService } from 'src/app/services/client.service';
 import { ServicesService } from 'src/app/services/services.service';
+import { SupplierService } from 'src/app/services/supplier.service';
 
 @Component({
   selector: 'app-habitation',
@@ -13,22 +14,36 @@ import { ServicesService } from 'src/app/services/services.service';
 })
 export class HabitationComponent implements OnInit {
 
+  url = "";
   typeHabitation: TypeHabitation[] = [];
   habitations_available: Habitation[] = [];
   typeSelect: TypeHabitation = { "id": "", "name": "", "description": "", "price": 0, "status": 0, "images": [] };
   habitationsSelect: Habitation[] = [];
   checks: any = { checkin: "", checkout: ""};
   previusImage : string = "";
+  gImage = null;
+  lodgingSelect = false;
+  isClient = false;
+  clientVerify = false;
+  clientTemp = {
+    id: "",
+    name: "",
+    lastname: "",
+    phone: "",
+    email: "",
+    address: "",
+    avatar: ""
+  }
 
   formLodging: FormGroup = this.fb.group({
     tipoIdentidad: ['', Validators.required],
     cedula:        ['', [Validators.required, Validators.pattern(/^-?(0|[0-9]\d*)?$/), Validators.minLength(7)]],    
-    name:          ['', [Validators.required, Validators.minLength(3)]],
-    lastname:      ['', [Validators.required, Validators.minLength(4)]],
-    phone:         ['', [Validators.required, Validators.pattern(/^-?(0|[0-9]\d*)?$/), Validators.minLength(11)]],
-    email:         ['', [Validators.required, Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)  ] ],
-    address:       [''],
-    avatar:        [''],
+    name:          [this.clientTemp.name, [Validators.required, Validators.minLength(3)]],
+    lastname:      [this.clientTemp.lastname, [Validators.required, Validators.minLength(4)]],
+    phone:         [this.clientTemp.phone, [Validators.required, Validators.pattern(/^-?(0|[0-9]\d*)?$/), Validators.minLength(11)]],
+    email:         [this.clientTemp.email, [Validators.required, Validators.pattern(/^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)  ] ],
+    address:       [this.clientTemp.address],
+    avatar:        null,
     adults:        ['', Validators.required],
     children:      [''],
     checkin:       [this.clientService.checks.checkin, Validators.required],
@@ -36,7 +51,8 @@ export class HabitationComponent implements OnInit {
 
   });
   
-  constructor( private services: ServicesService, private clientService: ClientService, private fb: FormBuilder, private sanitizer: DomSanitizer ) { 
+  constructor( private services: ServicesService, private clientService: ClientService, private fb: FormBuilder, private sanitizer: DomSanitizer, private global: SupplierService ) { 
+              this.url = global.urlGlobal;
               this.services.getTypeHabitation()
                             .subscribe( (resp:any) => {
 
@@ -45,11 +61,36 @@ export class HabitationComponent implements OnInit {
                             });
 
               this.habitations_available = this.clientService.habitations_available;
-              this.checks = clientService.checks;
-              console.log("checks",this.checks);
+              this.checks = clientService.checks;              
   }
 
   ngOnInit(): void {
+  }
+
+  checkClient(){
+    var client = {
+      "cedula": this.formLodging.value.tipoIdentidad + this.formLodging.value.cedula
+    };   
+
+    this.clientService.getClient(client).subscribe( (res:any) => {
+              
+        this.clientTemp.id = res.id;
+        this.clientTemp.name = res.name;
+        this.clientTemp.lastname = res.lastname;
+        this.clientTemp.phone = res.phone;
+        this.clientTemp.email = res.email;
+        this.clientTemp.address = res.address;
+        this.clientTemp.avatar = res.avatar;
+
+        this.isClient = true;
+        this.clientVerify = true;
+       }, (error) => {
+        //console.log("Error: ",error)
+        this.isClient = true;        
+       }
+    );
+    
+
   }
 
   onTypeSelect(type:any){
@@ -67,10 +108,9 @@ export class HabitationComponent implements OnInit {
   capAvatar(event:any){
     const fileCap = event.target.files[0];
     this.extraerBase64(fileCap).then( (image:any) => {
-      this.previusImage = image.base;
-      console.log(image.base);
+      this.previusImage = image.base;      
+      this.gImage = image.Blob;
     })
-    console.log(event.target.files);
   }
 
   //Estraer Base64
@@ -82,6 +122,8 @@ export class HabitationComponent implements OnInit {
       reader.readAsDataURL($event);
       reader.onload = () => {
         resolve({
+          Blob: $event,
+          image,
           base: reader.result
         });
       };
@@ -96,9 +138,20 @@ export class HabitationComponent implements OnInit {
   });
 
   onSubmitLodging(){
+
+    this.formLodging.value.avatar = this.gImage;
     
-    this.clientService.setApplicationLodging(this.formLodging.value);
-    this.formLodging.reset();
+    if ( this.clientVerify ){
+      this.clientService.setApplicationLodging(this.formLodging.value, this.clientTemp.id);
+      this.lodgingSelect = true;
+      this.formLodging.reset();
+    } else {
+
+      this.clientService.setApplicationLodging(this.formLodging.value, this.clientTemp.id);
+      this.lodgingSelect = true;
+      this.formLodging.reset();
+    }
+      
   }
   
 

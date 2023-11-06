@@ -19,9 +19,9 @@ export class HomeComponent implements OnInit {
 
   dataService: TypeService[] = [];
   imagesHotel: any[] = [
-                          {'name': 'piscina', 'images':'https://images.unsplash.com/photo-1566073771259-6a8506099945?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80'},
-                          {'name': 'lobby de visitas', 'images':'https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=750&q=80'},
-                          {'name': 'spa de lujo', 'images':'https://images.unsplash.com/photo-1527142879-95b61a0b8226?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=731&q=80'}
+                          {'name': 'piscina', 'images':'http://127.0.0.1:8000/assets/images/extra/photo-1566073771259-6a8506099945.avif'},
+                          {'name': 'lobby de visitas', 'images':'http://127.0.0.1:8000/assets/images/extra/photo-1551882547-ff40c63fe5fa.avif'},
+                          {'name': 'spa de lujo', 'images':'http://127.0.0.1:8000/assets/images/extra/photo-1527142879-95b61a0b8226.avif'}
                         ];
   dataEvent : EventClient[] = [];
 

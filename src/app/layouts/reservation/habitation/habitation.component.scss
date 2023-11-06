@@ -40,3 +40,25 @@
     position: relative !important;
     top: -20px !important;
 }
+
+
+.client{
+    transition: .3s all;
+    height: 0px;
+    opacity: 0;
+    margin-bottom: 0px;
+}
+
+.client.check-client{
+    height: auto;
+    opacity: 1;
+    margin-bottom: 1rem;
+}
+
+.isDisabled{
+    pointer-events: none;
+    cursor: not-allowed;
+}
+.isDisabled:hover{
+    cursor: not-allowed;
+}

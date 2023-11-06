@@ -21,7 +21,7 @@ import { MainComponent } from './layouts/reservation/main/main.component';
 import { CarrouselHabitationComponent } from './shared/carrousel-habitation/carrousel-habitation.component';
 import { CarrouselSpacesComponent } from './shared/carrousel-spaces/carrousel-spaces.component';
 import { HeaderComponent } from './shared/header/header.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -47,7 +47,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     HttpClientModule,
     SwiperModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

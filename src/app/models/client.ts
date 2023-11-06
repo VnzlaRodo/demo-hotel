@@ -5,6 +5,6 @@ export interface Client{
     lastname: string,
     email: string,
     phone: string,
-    address?: string,
-    avatar?: string
+    address: string,
+    avatar: File
 }

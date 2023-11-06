@@ -45,9 +45,9 @@
           </div>
 
           <!-- form -->
-          <div class="container-form" *ngIf="habitationsSelect[0]">
+          <div class="container-form" *ngIf="habitationsSelect[0] && !lodgingSelect">
 
-            <form (ngSubmit)="onSubmitLodging()" [formGroup]="formLodging">
+            <form (ngSubmit)="onSubmitLodging()" [formGroup]="formLodging" enctype="multipart/form-data">
 
               <label class="form-label">Datos de Contacto</label>
               <div class="input-group mb-3">
@@ -55,14 +55,19 @@
                       <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5h13zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2h-13z"/>
                       <path d="M3 8.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm0-5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5v-1z"/>
                     </svg></span>
-                  <select class="form-select" formControlName="tipoIdentidad">
-                      <option selected>Tipo de identificación</option>
+                  <select class="form-select" formControlName="tipoIdentidad" [ngClass]="{'isDisabled': clientVerify}">                      
                       <option value="V">V</option>
                       <option value="E">E</option>
                       <option value="J">J</option>
                       <option value="G">G</option>
                     </select>
-                  <input type="text" class="form-control" formControlName="cedula" placeholder="Número de identidad*">
+                  <input type="text" 
+                         class="form-control" 
+                         formControlName="cedula" 
+                         name="cedula"
+                         placeholder="Número de identidad*"
+                         [ngClass]="{'isDisabled': clientVerify}"
+                         >
                 </div>
                 <div class="row span-error-group">
                   <span class="col form-text text-danger" *ngIf="validCap('tipoIdentidad')">
@@ -72,13 +77,29 @@
                     Campo cedula obligatorio solo números
                   </span> 
                 </div>
+
+                <div class="d-grid gap-2" *ngIf="!isClient">
+                  <button type="button" class="btn btn-primary" (click)="checkClient()">Siguiente</button>
+                </div>
     
-                <div class="input-group mb-3">
+                <div class="input-group client" [ngClass]="{'check-client': isClient}">
                     <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-lines-fill" viewBox="0 0 16 16">
                       <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z"/>
                     </svg></span>
-                  <input type="text" class="form-control" formControlName="name" placeholder="Nombre*">
-                  <input type="text" class="form-control" formControlName="lastname" placeholder="Apellido*">
+                  <input type="text" 
+                         class="form-control" 
+                         formControlName="name" 
+                         name="name"
+                         placeholder="Nombre*"
+                         [(ngModel)]="clientTemp.name"
+                         >
+                  <input type="text" 
+                         class="form-control" 
+                         formControlName="lastname" 
+                         name="lastname"
+                         placeholder="Apellido*"
+                         [(ngModel)]="clientTemp.lastname"
+                         >
                 </div>
                 <div class="row span-error-group">
                   <span class="col form-text text-danger" *ngIf="validCap('name')">
@@ -88,16 +109,28 @@
                     Campo Apellido obligatorio minimo 4 caracteres
                   </span> 
                 </div>
-                <div class="input-group mb-3">
+                <div class="input-group client" [ngClass]="{'check-client': isClient}">
                   <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-phone-fill" viewBox="0 0 16 16">
                       <path d="M3 2a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V2zm6 11a1 1 0 1 0-2 0 1 1 0 0 0 2 0z"/>
                     </svg></span>
-                <input type="phone" class="form-control" formControlName="phone" placeholder="Teléfono*">
+                <input type="phone" 
+                       class="form-control" 
+                       formControlName="phone" 
+                       name="phone"
+                       placeholder="Teléfono*"
+                       [(ngModel)]="clientTemp.phone"
+                       >
                 <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-at-fill" viewBox="0 0 16 16">
                   <path d="M2 2A2 2 0 0 0 .05 3.555L8 8.414l7.95-4.859A2 2 0 0 0 14 2H2Zm-2 9.8V4.698l5.803 3.546L0 11.801Zm6.761-2.97-6.57 4.026A2 2 0 0 0 2 14h6.256A4.493 4.493 0 0 1 8 12.5a4.49 4.49 0 0 1 1.606-3.446l-.367-.225L8 9.586l-1.239-.757ZM16 9.671V4.697l-5.803 3.546.338.208A4.482 4.482 0 0 1 12.5 8c1.414 0 2.675.652 3.5 1.671Z"/>
                   <path d="M15.834 12.244c0 1.168-.577 2.025-1.587 2.025-.503 0-1.002-.228-1.12-.648h-.043c-.118.416-.543.643-1.015.643-.77 0-1.259-.542-1.259-1.434v-.529c0-.844.481-1.4 1.26-1.4.585 0 .87.333.953.63h.03v-.568h.905v2.19c0 .272.18.42.411.42.315 0 .639-.415.639-1.39v-.118c0-1.277-.95-2.326-2.484-2.326h-.04c-1.582 0-2.64 1.067-2.64 2.724v.157c0 1.867 1.237 2.654 2.57 2.654h.045c.507 0 .935-.07 1.18-.18v.731c-.219.1-.643.175-1.237.175h-.044C10.438 16 9 14.82 9 12.646v-.214C9 10.36 10.421 9 12.485 9h.035c2.12 0 3.314 1.43 3.314 3.034v.21Zm-4.04.21v.227c0 .586.227.8.581.8.31 0 .564-.17.564-.743v-.367c0-.516-.275-.708-.572-.708-.346 0-.573.245-.573.791Z"/>
                 </svg></span>
-                <input type="email" class="form-control" formControlName="email" placeholder="Correo electronico*">              
+                <input type="email" 
+                       class="form-control" 
+                       formControlName="email" 
+                       name="email"
+                       placeholder="Correo electronico*"
+                       [(ngModel)]="clientTemp.email"
+                       > 
               </div>
               <div class="row span-error-group">
                 <span class="col form-text text-danger" *ngIf="validCap('phone')">
@@ -108,24 +141,45 @@
                 </span> 
               </div>
                                           
-                <div class="input-group mb-3">
+                <div class="input-group client" [ngClass]="{'check-client': isClient}">
                   <span class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
                       <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
                     </svg></span>
-                  <input type="text" class="form-control" formControlName="address" placeholder="Dirección">
+                  <input type="text" 
+                         class="form-control" 
+                         formControlName="address" 
+                         name="address"
+                         placeholder="Dirección"
+                         [(ngModel)]="clientTemp.address"
+                         >
                 </div> 
-                
-                <label for="avatar" class="form-label">Foto (opcional)</label>  
-                <div class="input-group mb-3">
-                  <img class="img-cluid" *ngIf="previusImage" [src]="previusImage" alt="">
-                  <input type="file" (change)="capAvatar($event)" class="form-control" formControlName="avatar" placeholder="Foto" accept="image/png, image/jpeg, image/jpg">
+                               
+                <label for="avatar" class="form-label client" [ngClass]="{'check-client': isClient}">Foto (opcional)</label>  
+                <div class="input-group client" [ngClass]="{'check-client': isClient}">
+                  <img class="img-fluid" *ngIf="!previusImage && clientVerify" [src]="url+clientTemp.avatar" alt="avatar">
+                  <img class="img-fluid" *ngIf="previusImage" [src]="previusImage" alt="avatar">
+                  <input type="file"
+                        (change)="capAvatar($event)" 
+                        class="form-control"                         
+                        placeholder="Foto" 
+                        accept="image/png, image/jpeg, image/jpg">
                 </div>                           
                     
-                <label class="form-label">Datos de la reservación</label>
+                <label class="form-label client" [ngClass]="{'check-client': isClient}">Datos de la reservación</label>
                 
-                <div class="input-group mb-3">
-                  <input type="number" class="form-control" formControlName="adults" placeholder="Adultos*"  min="0">
-                  <input type="number" class="form-control" formControlName="children" placeholder="Niños*"  min="0">
+                <div class="input-group client" [ngClass]="{'check-client': isClient}">
+                  <input type="number" 
+                         class="form-control" 
+                         formControlName="adults" 
+                         placeholder="Adultos*"  
+                         min="0"                         
+                         >
+                  <input type="number" 
+                         class="form-control" 
+                         formControlName="children" 
+                         placeholder="Niños*"  
+                         min="0"                         
+                         >
                 </div>  
                 <div class="row span-error-group">
                   <span class="col form-text text-danger" *ngIf="validCap('adults')">
@@ -133,17 +187,23 @@
                   </span>
                 </div>  
     
-                <div class="input-group mb-3">
+                <div class="input-group client" [ngClass]="{'check-client': isClient}">
                   <input type="date" class="form-control " formControlName="checkin" readonly>
                   <input type="date" class="form-control" formControlName="checkout" readonly>
                 </div> 
                           
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="submit" [disabled]="formLodging.invalid" class="btn btn-primary">Reservar</button>
+                <button type="button" class="btn btn-secondary client" [ngClass]="{'check-client': isClient}" data-bs-dismiss="modal">Cancelar</button>
+                <button type="submit" [disabled]="formLodging.invalid" class="btn btn-primary client" [ngClass]="{'check-client': isClient}">Reservar</button>
 
             </form>
             </div>
 
+            <div class="container-message-error" *ngIf="lodgingSelect">
+              <p>SU RESERVA POR UNA HABITACIÓN {{ typeSelect.name | uppercase }} SE HA ENVIADO CON EXITO, PRONTO NOS PONDREMOS EN CONTACTO PARA CONFIRMAR SU SOLICITUD</p>
+              <div class="d-grid gap-2">
+                <a [routerLink]="['/reserva']" class="btn btn-dark" data-bs-dismiss="modal" aria-label="Close">Volver a ingresas fecha</a>
+              </div>
+            </div>
           
         </div>
         
